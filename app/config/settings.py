@@ -131,7 +131,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
-# Media files uploaded by users / customers
+# Media files uploaded by user / customers
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -186,8 +186,8 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_BROKER_CHANNEL_ERROR_RETRY = True
 
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = os.getenv('smtp_server')
+EMAIL_PORT = os.getenv('smtp_port')
+EMAIL_HOST_USER = os.getenv('smtp_username')
+EMAIL_HOST_PASSWORD = os.getenv('smtp_password')
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')

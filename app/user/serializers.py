@@ -7,6 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
     pk = serializers.IntegerField(read_only=True)
     email = serializers.CharField(read_only=True)
 
+
     class Meta:
         model = User
         fields = (

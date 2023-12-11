@@ -14,11 +14,11 @@ from user.views import (
 app_name = UserConfig.name
 
 urlpatterns = [
-    path('', UsersListView.as_view(), name='users-list'),
-    path('create/', UsersRegistrationView.as_view(), name='users-create'),
+    path('', UsersListView.as_view(), name='user-list'),
+    path('create/', UsersRegistrationView.as_view(), name='user-create'),
     path('<int:pk>/', UsersRetrieveView.as_view(), name='user-retrieve'),
-    path('update/<int:pk>/', UsersUpdateView.as_view(), name='users-update'),
-    path('delete/<int:pk>/', UsersDestroyView.as_view(), name='users-destroy'),
+    path('update/<int:pk>/', UsersUpdateView.as_view(), name='user-update'),
+    path('delete/<int:pk>/', UsersDestroyView.as_view(), name='user-destroy'),
 
     path(
         'verify_email/<uidb64>/<token>/',

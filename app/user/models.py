@@ -1,10 +1,12 @@
-import datetime
+from datetime import datetime
 
 from django.contrib.auth.models import AbstractUser
 from django.core import validators
 from django.db import models
 
 from constants import NULLABLE
+from user.service import save_picture
+from user.managers import CustomUserManager
 
 
 class User(AbstractUser):
@@ -21,7 +23,7 @@ class User(AbstractUser):
         **NULLABLE
     )
     image = models.ImageField(
-        upload_to='static.user',
+        upload_to=save_picture,
         verbose_name='avatar',
         **NULLABLE
     )
@@ -53,11 +55,18 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    def __str__(self) -> str:
+    objects = CustomUserManager()
 
-        return f'{self.pk}-{self.email}'
+    def __str__(self) -> str:
+        """
+        Return a string representation of the user.
+
+        Returns:
+            str: The user's full name and email address.
+        """
+        return f'{self.first_name} {self.last_name} ({self.email})'
 
     class Meta:
         verbose_name = 'user'
-        verbose_name_plural = 'users'
+        verbose_name_plural = 'user'
         ordering = ('date_joined',)

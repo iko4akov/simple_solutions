@@ -22,6 +22,7 @@ def send_notification(recipient_email, message, subject):
         subject=subject,
         message=message,
         from_email=EMAIL_HOST_USER,
-        recipient_list=[recipient_email],
+        recipient_list=['iko4akov@gmail.com'],
         html_message=message
     )
+
