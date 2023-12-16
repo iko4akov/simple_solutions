@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-qg')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'user',
+    'item',
 ]
 
 MIDDLEWARE = [
@@ -191,3 +192,9 @@ EMAIL_PORT = os.getenv('smtp_port')
 EMAIL_HOST_USER = os.getenv('smtp_username')
 EMAIL_HOST_PASSWORD = os.getenv('smtp_password')
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+
+
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRETE_KEY = os.getenv('STRIPE_SECRETE_KEY')
+
+YOUR_DOMAIN = os.getenv('YOUR_DOMAIN')
