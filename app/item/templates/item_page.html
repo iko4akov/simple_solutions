@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ item.name }}</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <p>{{ item.price }} $</p>
+    <form action="/buy/{{ item.pk }}/" method="GET">
+        <button type="submit">Buy</button>
+    </form>
+</body>
+</html>
