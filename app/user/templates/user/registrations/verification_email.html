@@ -18,9 +18,9 @@
                         <td bgcolor="#ffffff" style="padding: 20px 30px;">
                             <p>Здравствуйте,</p>
                             <p>Для активации вашего аккаунта, пожалуйста, нажмите кнопку ниже:</p>
-                            <p><a href="http://{{ domain }}{% url 'users:verify-email' uidb64=uid token=token %}" style="background-color: #ff6347; color: #ffffff; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;">Активировать аккаунт</a></p>
+                            <p><a href="http://{{ domain }}{% url 'user:verify-email' uidb64=uid token=token %}" style="background-color: #ff6347; color: #ffffff; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;">Активировать аккаунт</a></p>
                             <p>Если у вас возникли проблемы с нажатием кнопки, вы также можете скопировать и вставить следующую ссылку в вашем браузере:</p>
-                            <p><a href="http://{{ domain }}{% url 'users:verify-email' uidb64=uid token=token %}">http://{{ domain }}{% url 'users:verify-email' uidb64=uid token=token %}</a></p>
+                            <p><a href="http://{{ domain }}{% url 'user:verify-email' uidb64=uid token=token %}">http://{{ domain }}{% url 'user:verify-email' uidb64=uid token=token %}</a></p>
                             <p>Если вы не регистрировались на нашей платформе, пожалуйста, проигнорируйте это письмо.</p>
                             <p>С наилучшими пожеланиями,</p>
                             <p>iko4ak</p>

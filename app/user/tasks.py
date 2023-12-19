@@ -25,3 +25,4 @@ def send_notification(recipient_email, message, subject):
         recipient_list=[recipient_email],
         html_message=message
     )
+

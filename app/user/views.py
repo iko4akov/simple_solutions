@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,11 +12,10 @@ from user.models import User
 from user.serializers import UserSerializer, UserRegistrationSerializer
 from user.service import generate_token
 
-
 class UsersListView(generics.ListAPIView):
+    permission_classes = [IsAdminUser]
     serializer_class = UserSerializer
     queryset = User.objects.all()
-
 
 class UsersRegistrationView(generics.CreateAPIView):
     permission_classes = [AllowAny]
@@ -30,7 +29,7 @@ class UsersRegistrationView(generics.CreateAPIView):
         mail_subject = 'Подтверждение электронной почты'
 
         message = render_to_string(
-            'users/registrations/verification_email.html',
+            'user/registrations/verification_email.html',
             {
                 'user': user,
                 'uid': uid,
@@ -95,6 +94,9 @@ class UsersRetrieveView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
+        """Only staff user can view all users data"""
+        if self.request.user.is_staff:
+            return User.objects.all()
         return User.objects.filter(pk=self.request.user.pk)
 
 
