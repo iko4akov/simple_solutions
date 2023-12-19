@@ -7,10 +7,10 @@ class Item(models.Model):
 
     name = models.CharField(max_length=100, verbose_name='Наимменование')
     description = models.TextField(verbose_name='Описание', **NULLABLE)
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Стоймость')
+    price = models.IntegerField(verbose_name='Стоймость') # in cents
 
     def __str__(self):
-        return f'{self.name} - {self.price}$ ({self.description[:15]}...)'
+        return f'{self.name} - {self.price} cents ({self.description[:15]}...)'
 
     class Meta:
         verbose_name = 'Продукт'

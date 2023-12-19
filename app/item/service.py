@@ -8,18 +8,18 @@ from item.models import Item
 
 stripe.api_key = STRIPE_SECRETE_KEY
 
-def create_checkout_session(item: Item):
-    product = create_product(item)
-    price = create_price(item).get('data')[0]
 
+def create_checkout_session(item: Item) -> str:
+    create_product(item)
+    create_price(item)
+    price = stripe.Price.list(product=str(item.pk)).get('data')[0].get('id')
     try:
         checkout_session = stripe.checkout.Session.create(
-          success_url="https://example.com/success",
-          line_items=[{"price": price.get('id'), "quantity": 1}],
-          mode="payment",
+            success_url="https://example.com/success",
+            line_items=[{"price": price, "quantity": 1}],
+            mode="payment",
         )
-
-        return checkout_session
+        return checkout_session.get('id')
 
     except Exception as e:
         return str(e)
@@ -36,27 +36,21 @@ def create_product(item: Item) -> dict:
             product = stripe.Product.create(id=str(item.pk), name=item.name, description=item.description)
 
         else:
-            product = {'exception': str(e)}
+            product = {'exception product': str(e)}
 
     finally:
+
         return product
 
-def create_price(item: Item) -> dict:
-    price = None
 
+def create_price(item: Item):
     try:
-        if len(stripe.Price.list(product=item.pk)) > 0:
-            price = stripe.Price.list(product=item.pk)
-
-        else:
-            price = stripe.Price.create(
+        if len(stripe.Price.list(product=str(item.pk)).get("data")) == 0:
+            stripe.Price.create(
                 currency="usd",
-                unit_amount_decimal=item.price,
-                product_data={"id": item.pk, "name": item.name},
+                unit_amount=item.price,
+                product=f"{item.pk}"
             )
 
     except stripe.error.InvalidRequestError as e:
-        price = {'exception': str(e)}
-
-    finally:
-        return price
+        return str(e)
