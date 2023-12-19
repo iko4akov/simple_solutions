@@ -1,28 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-
-<head>
-    <title>{{ item.name }}</title>
-    <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body>
-    <h1>{{ item.name }}</h1>
-    <p>{{ item.description }}</p>
-    <button id="buyButton">Buy</button>
-
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple page</title>
+  </head>
+  <body>
+    <p> Продукт №{{ item.pk }} </p>
+    <p> Описание {{ item.description }}</p>
     <script>
-        document.getElementById('buyButton').addEventListener('click', function() {
-            fetch(`/buy/{{ item.id }}`)
-                .then(response => response.json())
-                .then(data => {
-                    var stripe = Stripe('sk_test_51Ns7wcBwJOVg17VQaFqrT6dFeVfP7uru9qSZczDKpH9buthbg4J2fI24YpoaXArtSwnB4hH1D4baHZebTSNSIy1a00LGXiixbQ');
-                    console.log(data.session_id)
-                    stripe.redirectToCheckout({ sessionId: data.session_id });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
+        var price = {{ item.price|escapejs }};
+        let result = price / 100;
+        document.write("Цена: $" + result);
     </script>
-</body>
+    <button id="buyButton">Buy</button>
+    <script src="{% static '/js/redirect.js' %}"></script>
+  </body>
 </html>
